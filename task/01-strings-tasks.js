@@ -52,7 +52,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-  return "Hello, ".concat(firstName, ' ', lastName, '!');
+  return 'Hello, '.concat(firstName, ' ', lastName, '!');
 }
 
 /**
@@ -81,7 +81,7 @@ function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-  return value.slice(0,1);
+  return value.slice(0, 1);
 }
 
 /**
@@ -127,7 +127,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value)  {
-  return str.replace(value,'');
+  return str.replace(value, '');
 }
 
 /**
@@ -220,8 +220,8 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace (/[A-Za-z]/g, function(c){
-    return String.fromCharCode(c.charCodeAt(0) + (c.toUpperCase() <= "M" ? 13 : -13) );
+  return str.replace(/[A-Za-z]/g, function(c){
+    return String.fromCharCode(c.charCodeAt(0)+(c.toUpperCase() <= "M" ? 13 : -13));
   })
 }
 
@@ -239,7 +239,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return  Object.prototype.toString.call(value) === "[object String]";
+  return  Object.prototype.toString.call(value) === '[object String]';
 }
 
 
