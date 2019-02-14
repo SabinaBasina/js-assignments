@@ -222,7 +222,7 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(/[A-Za-z]/g, function(c) {
+  return str.replace(/[A-Za-z]/g, c => {
     return String.fromCharCode(c.charCodeAt(0)+(c.toUpperCase()<='M'?13:-13));
   });
 }
@@ -270,7 +270,8 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  throw new Error('Not implemented');
+  var m={'A':1, '1':10, 'J':11, 'Q':12, 'K':13, '♣':0, '♦':13, '♥':26, '♠':39};
+  return (m[value[0]] || Number(value[0]))+m[value.substr(-1)]-1;
 }
 
 module.exports = {
