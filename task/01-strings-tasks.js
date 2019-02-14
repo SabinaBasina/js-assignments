@@ -199,19 +199,9 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return String.fromCharCode(9484) 
-          + String.fromCharCode(9472).repeat(width-2) 
-            + String.fromCharCode(9488) 
-              + '\n' 
-
-         + (String.fromCharCode(9474) 
-          + ' '.repeat(width-2) 
-            + String.fromCharCode(9474) 
-              + '\n').repeat(height-2) 
-
-         + String.fromCharCode(9492) 
-          + String.fromCharCode(9472).repeat(width-2) 
-            + String.fromCharCode(9496);
+  return String('┌')+String('─').repeat(width-2)+String('┐')+'\n' 
+         +(String('│')+' '.repeat(width-2)+String('│')+'\n').repeat(height-2) 
+         +String('└')+String('─').repeat(width-2)+String('┘')+'\n';
 }
 
 
