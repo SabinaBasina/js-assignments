@@ -29,7 +29,7 @@
  *
  */
 function getFizzBuzz(num) {
-  throw new Error('Not implemented');
+  return !(num%15)&&'FizzBuzz' || !(num%3)&&'Fizz' || !(num%5)&&'Buzz' || num;
 }
 
 
@@ -45,7 +45,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  throw new Error('Not implemented');
+  return n ? n * getFactorial(n - 1) : 1;
 }
 
 
@@ -62,7 +62,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-  throw new Error('Not implemented');
+  return ((n2 - n1) + 1) * (n1 + n2) / 2;
 }
 
 
@@ -82,7 +82,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-  throw new Error('Not implemented');
+  return a < b + c && b < a + c && c < b + a;
 }
 
 
@@ -166,7 +166,7 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  throw new Error('Not implemented');
+  return [...str].find(e => str.match(new RegExp(e, 'g')).length === 1);
 }
 
 
@@ -193,7 +193,9 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  throw new Error('Not implemented');
+  return (isStartIncluded && '[' || '(') 
+        + (!(a<b) && b || a) + ', ' + (!(a<b) && a || b) 
+        + (isEndIncluded && ']' || ')');
 }
 
 
@@ -210,7 +212,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  throw new Error('Not implemented');
+  return str.split('').reverse().join('');
 }
 
 
@@ -227,7 +229,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  throw new Error('Not implemented');
+  return Number(String(num).split('').reverse().join(''));
 }
 
 
@@ -271,7 +273,8 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-  throw new Error('Not implemented');
+  var sum = String(num).split('').reduce((a, b) => +a + +b);
+  return sum > 9 ? getDigitalRoot(sum) : sum;
 }
 
 

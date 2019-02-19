@@ -571,7 +571,10 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-  throw new Error('Not implemented');
+  var a = arr.slice(0, Math.trunc(arr.length/2));
+  var b = arr.slice(Math.trunc(arr.length/2)+1, arr.length);
+  var c = arr[Math.trunc(arr.length/2)];
+  return arr.length%2 === 0 ? [c, ...b, ...a] : [...b, c, ...a]; 
 }
 
 module.exports = {

@@ -73,7 +73,7 @@ function getAverage(value1, value2) {
  *   (4, 2) (1, 6) => 5
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
+  return Math.hypot(x1-x2, y1-y2);
 }
 
 /**
@@ -161,7 +161,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  return Math.sqrt(a*a+b*b+c*c);
+  return Math.hypot(a, b, c);
 }
 
 /**
