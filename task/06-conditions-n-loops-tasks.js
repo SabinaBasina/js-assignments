@@ -254,7 +254,11 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-  throw new Error('Not implemented');
+  let c = 0; let arr = [];
+  arr = Array.from(String(ccn)).map(e => parseInt(e));
+  c = arr.length%2 === 0 ? c=0 : c=1;
+  return arr.map((e, i) => i%2 === c ? (e*2 > 9 ? e*2-9 : e*2) : e)
+    .reduce((acc, cur) => acc+cur)%10 === 0 ;
 }
 
 
@@ -401,8 +405,20 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  throw new Error('Not implemented');
+  var result = [];
+  m1.forEach((e, i) => {
+    result[i] = [];
+    m2[0].forEach((e, j) => {
+      var sum = 0;
+      m1[0].forEach((e, k) => {
+        sum += m1[i][k] * m2[k][j];
+      });
+      result[i][j] = sum;
+    });
+  });
+  return result;
 }
+
 
 
 /**
