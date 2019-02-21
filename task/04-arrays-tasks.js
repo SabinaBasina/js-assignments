@@ -390,7 +390,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-  return arr.toString(',');
+  return arr.join();
 }
 
 
@@ -514,7 +514,12 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  throw new Error('Not implemented');
+  var myMap = new Map();
+  array.map(e => {
+    var city = myMap.get(keySelector(e)) || [];
+    myMap.set(keySelector(e), city.concat(valueSelector(e)));
+  });
+  return myMap;
 }
 
 
@@ -549,7 +554,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  throw new Error('Not implemented');
+  return indexes.reduce((acc, curr) => acc[curr], arr);
 }
 
 
