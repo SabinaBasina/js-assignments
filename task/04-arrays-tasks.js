@@ -514,12 +514,10 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  var myMap = new Map();
-  array.map(e => {
-    var city = myMap.get(keySelector(e)) || [];
-    myMap.set(keySelector(e), city.concat(valueSelector(e)));
-  });
-  return myMap;
+  return array.reduce((acc, curr) => {
+    var key = keySelector(curr); var value = valueSelector(curr);
+    return acc.set(key, (acc.get(key) || []).concat(value));
+  }, new Map());
 }
 
 

@@ -119,7 +119,12 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  throw new Error('Not implemented');
+  var tw1 = rect1.top + rect1.width;
+  var tw2 = rect2.top + rect2.width;
+  var lh1 = rect1.left + rect1.height;
+  var lh2 = rect2.left + rect2.height;
+  return !(rect1.top > tw2 || rect2.top > tw1 
+    || rect1.left > lh2 || rect2.left > lh1);
 }
 
 
@@ -150,7 +155,8 @@ function doRectanglesOverlap(rect1, rect2) {
  *
  */
 function isInsideCircle(circle, point) {
-  throw new Error('Not implemented');
+  var distance = Math.hypot(point.x-circle.center.x, point.y-circle.center.y);
+  return distance < circle.radius;
 }
 
 
@@ -304,7 +310,7 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  var X = str.replace(/\(\)|\[]|{}|<>/, '');
+  var X = str.replace(/\(\)|\[\]|\{\}|<>/, '');
   return X === str ? !str : isBracketsBalanced(X);
 }
 
@@ -341,7 +347,31 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  throw new Error('Not implemented');
+  var period = endDate - startDate;
+  var s = 1000; var m = s * 60; var h = m * 60; var d = h * 24;
+  if (period <= 45 * s){
+    return 'a few seconds ago';
+  } else if (period <= 90 * s){
+    return 'a minute ago';
+  } else if (period <= 45 * m){
+    return `${Math.round((period-1) / m)} minutes ago`;
+  } else if (period <= 90 * m){
+    return 'an hour ago';
+  } else if (period <= 22 * h){
+    return `${Math.round((period-1) / h)} hours ago`;
+  } else if (period <= 36 * h){
+    return 'a day ago';
+  } else if (period <= 25 * d){
+    return `${Math.round((period-1) / d)} days ago`;
+  } else if (period <= 45 * d){
+    return 'a month ago';
+  } else if (period <= 345 * d){
+    return `${Math.round((period-1) / (30 * d))} months ago`;
+  } else if (period <= 545 * d){
+    return 'a year ago';
+  } else { 
+    return `${Math.round((period-1) / (365 * d))} years ago`;
+  }
 }
 
 
