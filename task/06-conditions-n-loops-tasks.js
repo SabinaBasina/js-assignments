@@ -413,7 +413,13 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  throw new Error('Not implemented');
+  pathes = pathes.map(e => e.split('/')); 
+  pathes = pathes[0].map((e, i) => pathes.map(a => a[i])); 
+  pathes = pathes.filter(arr => arr.every(e => e === arr[0])); 
+  if (pathes[0] !== undefined) { 
+    pathes = pathes[0].map((e, i) => pathes.map(a => a[i])); 
+    return pathes[0].join('/')+'/';} 
+  else return pathes = ''; 
 }
 
 
@@ -483,7 +489,19 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  throw new Error('Not implemented');
+  var comb = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  for(var i=0; i<3; i++){
+    position.map(arr => arr.length<3 ? arr.push('') : arr );
+  }
+  position = [].concat.apply([], position);
+  var win = comb.find(el => el.every(e => position[e] === position[el[0]]));
+  if(win !== undefined) {
+    return position[win[0]]; 
+  }
+  else{ 
+    return win; 
+  }
 }
 
 module.exports = {
