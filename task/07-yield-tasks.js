@@ -43,7 +43,6 @@ function* get99BottlesOfBeer() {
         (i-1) + ' bottle' + (i === 2 ? '' : 's') + ' of beer on the wall.'; 
     } 
   } 
-  
   yield 'No more bottles of beer on the wall, no more bottles of beer.'; 
   yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'; 
 }
@@ -98,7 +97,15 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
+  var nodes = [root]; 
+  for(let i=0; i<nodes.length; i++){ 
+    yield nodes[i]; 
+    if(nodes[i].children){ 
+      for(let j=0; j<nodes[i].children.length; j++){ 
+        nodes.splice(i+j+1, 0, nodes[i].children[j]); 
+      } 
+    } 
+  }
 }
 
 
@@ -124,7 +131,15 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  throw new Error('Not implemented');
+  var nodes = [root]; 
+  for(let i=0; i<nodes.length; i++){ 
+    yield nodes[i]; 
+    if(nodes[i].children){ 
+      for(let j=0; j<nodes[i].children.length; j++){ 
+        nodes.push(nodes[i].children[j]); 
+      } 
+    } 
+  }
 }
 
 
@@ -144,6 +159,7 @@ function* breadthTraversalTree(root) {
 function* mergeSortedSequences(source1, source2) {
   throw new Error('Not implemented');
 }
+
 
 module.exports = {
   get99BottlesOfBeer: get99BottlesOfBeer,
