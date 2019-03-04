@@ -12,7 +12,9 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 function distinctLettersString(value1, value2) {
-  throw new Error('Not implemented');
+  let value = value1 + value2;
+  value = [...value].filter((el, i) => [...value].indexOf(el) === i);
+  return value.sort().join('');
 }
 
 
@@ -29,7 +31,18 @@ function distinctLettersString(value1, value2) {
  */
 
 function lowerLetters(value) {
-  throw new Error('Not implemented');
+  let str;
+  let count;
+  const result = {};
+  const re = RegExp(/[a-z]/);
+  while(re.test(value)){
+    count = 0;
+    str = value.match(re);
+    [...value].forEach(e => e === str[0] ? count++ : '');
+    result[str[0]] = count;    
+    value = [...value].filter(e => e !== str[0] ).join('');
+  }
+  return result;
 }
 
 /**
@@ -45,13 +58,24 @@ function lowerLetters(value) {
  * @return {string}
  *
  * @example
- *    'a clash if KINGS', 'a an the of'  =>  'A Clash of Kings'
+ *    'a clash of KINGS', 'a an the of'  =>  'A Clash of Kings'
  *    'THE WIND IN THE WILLOWS', 'The In'  => 'The Wind in the Willows'
  *    'the quick brown fox'  => 'The Quick Brown Fox'
  */
 
 function titleCaseConvert(title, minorWords) {
-  throw new Error('Not implemented');
+  title = title.toLowerCase().split(' ');
+  if(minorWords){
+    minorWords = minorWords.toLowerCase().split(' ');
+    for(let i = 0; i<title.length; i++){
+      if((!minorWords.some(e => e===title[i]) || title.indexOf(title[i])===0)){
+        title[i] = title[i].replace(/^\w/, l => l.toUpperCase());
+      }
+    }
+    return title.join(' ');
+  }else{
+    return title.map(e => e.replace(/^\w/, l => l.toUpperCase())).join(' ');
+  }
 }
 
 /**
@@ -72,7 +96,15 @@ function titleCaseConvert(title, minorWords) {
  */
 
 function calcRPN(expr) {
-  throw new Error('Not implemented');
+  const re = RegExp(/\+|-|\*|\//);
+  const arr = expr.split(' ');
+  for(let i =0; i< arr.length; i++){
+    if(re.test(arr[i])){
+      arr.splice(i-2, 3, eval(`${arr[i-2]}${arr[i]}${arr[i-1]}`));
+      i -= 2;
+    }    
+  }
+  return arr[arr.length-1];
 }
 
 module.exports = {
