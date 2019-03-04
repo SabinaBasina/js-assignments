@@ -69,8 +69,21 @@ function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
  *
  *   'nothing to do' => 'nothing to do'
  */
-function* expandBraces(str) {
-  throw new Error('Not implemented');
+function* expandBraces(str) { 
+  const arrStr = [str]; 
+  const arrResult = [];   
+  while (arrStr.length) { 
+    const newStr = arrStr.pop(); 
+    const subStr = newStr.match(/{([^{}]*)}/);   
+    if(subStr) {  
+      for (const i of subStr[1].split(',')){ 
+        arrStr.push(newStr.replace(subStr[0], i)); 
+      }   
+    } else if (!arrResult.includes(newStr)) { 
+      arrResult.push(newStr); 
+      yield newStr; 
+    } 
+  } 
 }
 
 
