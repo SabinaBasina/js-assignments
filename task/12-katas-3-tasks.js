@@ -28,7 +28,40 @@
  *   'NULL'      => false
  */
 function findStringInSnakingPuzzle(puzzle, searchStr) {
-  throw new Error('Not implemented');
+  let result;
+  let count, m, n, letter, arrResult = [];
+  searchStr = searchStr.split('');
+  for(let i = 0; i<puzzle.length; i++){
+    for(let j = 0; j<puzzle[0].length; j++){
+      if(puzzle[i][j] === searchStr[0]){        
+        result = true; count = 0; m = i; n = j;
+        arrResult.push(`${m}, ${n}`);
+        while(result && count < searchStr.length){
+          count++;
+          letter = searchStr[count];
+          if(letter === puzzle[m][n+1]){
+            n = n+1;
+            result = true;
+          } else if(letter === puzzle[m][n-1]){
+            n = n-1;
+            result = true;
+          } else if(letter === (puzzle[m+1] && puzzle[m+1][n])){
+            m = m+1;
+            result = true;
+          } else if (letter === (puzzle[m-1] && puzzle[m-1][n])){
+            m = m-1;
+            result = true;
+          } else {result = false;}  
+          if(result){arrResult.push(`${m}, ${n}`);}          
+        } 
+        if(count === searchStr.length 
+          && arrResult.every((e, i) => arrResult.indexOf(e) === i)){
+          return true;
+        }
+        arrResult = [];
+      }            	
+    }	      
+  }
 }
 
 
@@ -86,7 +119,9 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-  throw new Error('Not implemented');
+  return quotes.reduce((acc, curr, i) => {
+    return acc + (Math.max(...quotes.slice(i)) - curr); 
+  }, 0);
 }
 
 

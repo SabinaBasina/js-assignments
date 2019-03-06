@@ -152,7 +152,43 @@ function getPokerHandRank(hand) {
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-  throw new Error('Not implemented');
+  let x, y, width, height;
+  let count = 2; 
+  figure = figure.split('\n');
+  figure = figure.map(arr => arr.split(''));
+  while(count > 1){
+    count = 0;
+    for(let i = 0; i<figure.length; i++){
+      if(figure[i].indexOf('+') !== -1){
+        x = i; y = figure[i].indexOf('+');
+        break;
+      }
+    }
+    width = y + 1; height = x + 1;  
+    while(figure[x][width] !== '+'){
+      width++;
+    }
+    while(figure[height][y] !== '+'){
+      height++;
+    }
+    yield ('+')+('-').repeat(width-y-1)+('+')+'\n' 
+          +(('|')+' '.repeat(width-y-1)+('|')+'\n').repeat(height-x-1) 
+          +('+')+('-').repeat(width-y-1)+('+')+'\n';
+
+    figure[x].splice(y, 1, '-');
+    if(figure[x][width+1] === undefined 
+      || figure[x][width+1] === ' ') figure[x].splice(width, 1, '-');
+    if(figure[height+1][y] === undefined 
+      || figure[height+1][y] === ' ') figure[height].splice(y, 1, '-');
+    if(figure[height+1][width] === ' ' 
+      || figure[height][width+1] === ' ') figure[height].splice(width, 1, '-');
+
+    for(let i = 0; i<figure.length; i++){
+      if(figure[i].indexOf('+') !== -1){
+        count++;
+      }
+    }
+  }
 }
 
 module.exports = {
