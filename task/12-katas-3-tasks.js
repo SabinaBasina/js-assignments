@@ -147,11 +147,26 @@ function UrlShortener() {
 
 UrlShortener.prototype = {
   encode(url) {
-    throw new Error('Not implemented');
+    const urlAllowedChars = this.urlAllowedChars.split('');
+    url = url.split('');
+    const result = [];
+    url = url.map(e => urlAllowedChars.indexOf(e) + 10);
+    while(url.length){
+      result.push(url.splice(0, 2).join('')); 
+    }
+    return result.map(e => String.fromCharCode(e)).join('');
   },
 
   decode(code) {
-    throw new Error('Not implemented');
+    const urlAllowedChars = this.urlAllowedChars.split('');
+    code = code.split('');
+    const result = [];
+    code = code.map(e => e.charCodeAt());
+    code = String(code).split('').filter(e => e !== ',');
+    while(code.length){
+      result.push(code.splice(0, 2).join('')); 
+    }
+    return result.map(e => e = urlAllowedChars[e-10]).join('');
   }
 };
 
