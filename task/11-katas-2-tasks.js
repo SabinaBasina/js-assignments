@@ -134,38 +134,37 @@ const PokerRank = {
 };
 
 function getPokerHandRank(hand) { 
-  const m = {'A':14, 'J':11, 'Q':12, 'K':13, '1':10 };
-  const first = hand.map(card => m[card[0]] || Number(card[0]));
+  const m = {'A':14, 'J':11, 'Q':12, 'K':13, '1':10 },
+    first = hand.map(card => m[card[0]] || Number(card[0])),
+    second = hand.map(card => card[card.length - 1]),
+    length = first.filter((e, i) => first.indexOf(e) === i).length,
+    count = [];
+
   first.forEach(e => e === 2 ? first.forEach((e, i) => e === 14 ?
     first.splice(i, 1, 1): '' ): '');
+    
   first.sort((a, b) => {return a-b;});
-  const second = hand.map(card => card[card.length - 1]);
-  let count, result = false;
+
+  first.forEach((f, i) => {
+    count[i] = 0;
+    first.forEach(e => f === e ? count[i]++ : '');
+  });
+
   if(second.filter((e, i) => second.indexOf(e) === i).length === 1){
     if(first.every((e, i) => first[0] === e-i)){
       return PokerRank.StraightFlush;
     }else return PokerRank.Flush;
   }else if(first.every((e, i) => first[0] === e-i)) {
     return PokerRank.Straight;
-  }else if(first.filter((e, i) => first.indexOf(e) === i).length === 2) {
-    for(let i =0; i < first.length; i++){
-      count = 0;
-      first.forEach(e => first[i] === e ? count++ : '');
-      if(count === 4) result = true;
-    }   
-    if(result){
+  }else if(length === 2) {
+    if(count.some(e => e === 4)){
       return PokerRank.FourOfKind; 
     }else return PokerRank.FullHouse;    
-  }else if(first.filter((e, i) => first.indexOf(e) === i).length === 3){
-    for(let i =0; i < first.length; i++){
-      count = 0;
-      first.forEach(e => first[i] === e ? count++ : '');
-      if(count === 3) result = true;
-    }
-    if(result){
+  }else if(length === 3){
+    if(count.some(e => e === 3)){
       return PokerRank.ThreeOfKind;
     }else return PokerRank.TwoPairs;
-  }else if(first.filter((e, i) => first.indexOf(e) === i).length === 4){
+  }else if(length === 4){
     return PokerRank.OnePair;
   } else return PokerRank.HighCard;
 }
