@@ -47,16 +47,13 @@ function parseBankAccount(bankAccount) {
   }
   bankAccount = bankAccount.split('\n');
   let s1 = bankAccount[0], s2 = bankAccount[1], s3 = bankAccount[2];
-  s1 = s1.split('');  s2 = s2.split(''); s3 = s3.split('');
+  s1 = s1.split(''); s2 = s2.split(''); s3 = s3.split('');
   while(s1.length){
     // eslint-disable-next-line 
     arrBank.push(`${s1.splice(0, 3).join('')}${s2.splice(0, 3).join('')}${s3.splice(0, 3).join('')}`);
   }
-  for(let i = 0 ; i<arrBank.length; i++){
-    for(let j = 0; j< arr.length; j++){
-      if(arrBank[i] === arr[j]) result.push(arr.indexOf(arr[j]));
-    }
-  }
+  arrBank.forEach(bank => 
+    arr.forEach((e, i) => bank === e ? result.push(i):''));  
   return Number(result.join(''));
 }
 
@@ -138,10 +135,9 @@ const PokerRank = {
 
 function getPokerHandRank(hand) { 
   const m = {'A':14, 'J':11, 'Q':12, 'K':13, '1':10 };
-  let first = hand.map(card => m[card[0]] || Number(card[0]));
+  const first = hand.map(card => m[card[0]] || Number(card[0]));
   first.forEach(e => e === 2 ? first.forEach((e, i) => e === 14 ?
     first.splice(i, 1, 1): '' ): '');
-  first.forEach(e => e === 2 ? first = first.filter(e => e !== 14): '');
   first.sort((a, b) => {return a-b;});
   const second = hand.map(card => card[card.length - 1]);
   let count, result = false;
